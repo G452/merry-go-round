@@ -60,13 +60,18 @@ public class MainActivity2 extends AppCompatActivity {
 
 
     float mTranslationNum = 100F;
-    int mDuration = 1500;
+    int mDuration = 800;
 
     private void animateAppearance(View view, boolean needDel) {
         view.setAlpha(0f);
+        view.setScaleX(0.5f);
+        view.setScaleY(0.5f);
         view.setTranslationY(mTranslationNum);
+        view.setPivotX(0f);
         ViewPropertyAnimator appearanceAnimator = view.animate()
                 .alpha(1f)
+                .scaleX(1f)
+                .scaleY(1f)
                 .translationY(0f)
                 .setDuration(mDuration);
 
