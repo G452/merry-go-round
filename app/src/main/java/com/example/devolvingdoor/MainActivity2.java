@@ -32,7 +32,7 @@ public class MainActivity2 extends AppCompatActivity {
         TextView titleView = findViewById(R.id.titleView);
         titleView.setText("当前实现方式：通过ObjectAnimator、ViewPropertyAnimator");
         findViewById(R.id.check).setOnClickListener(view -> {
-            startActivity(new Intent(this,MainActivity.class));
+            startActivity(new Intent(this, MainActivity.class));
             finish();
         });
     }
@@ -60,6 +60,7 @@ public class MainActivity2 extends AppCompatActivity {
 
 
     float mTranslationNum = 100F;
+    int mDuration = 1500;
 
     private void animateAppearance(View view, boolean needDel) {
         view.setAlpha(0f);
@@ -67,7 +68,7 @@ public class MainActivity2 extends AppCompatActivity {
         ViewPropertyAnimator appearanceAnimator = view.animate()
                 .alpha(1f)
                 .translationY(0f)
-                .setDuration(500);
+                .setDuration(mDuration);
 
         if (needDel) {
             View firstChild = llContainer.getChildAt(0);
@@ -82,7 +83,7 @@ public class MainActivity2 extends AppCompatActivity {
         for (int i = 0; i < llContainer.getChildCount() - 1; i++) {
             View child = llContainer.getChildAt(i);
             ObjectAnimator translationYAnimator = ObjectAnimator.ofFloat(child, "translationY", mTranslationNum, 0);
-            translationYAnimator.setDuration(500);
+            translationYAnimator.setDuration(mDuration);
             translationYAnimator.start();
         }
     }
@@ -90,14 +91,14 @@ public class MainActivity2 extends AppCompatActivity {
     private void animateDisappearance(View view) {
         view.animate()
                 .alpha(0f)
-                .setDuration(500)
+                .setDuration(mDuration)
                 .withEndAction(() -> llContainer.removeView(view))
                 .setListener(null)
                 .start();
     }
 
     private void handleDelAnimMessage() {
-        llContainer.getChildAt(0).animate().alpha(0).setDuration(500).start();
+        llContainer.getChildAt(0).animate().alpha(0).setDuration(mDuration).start();
     }
 
     private String[] texts = new String[]{
@@ -150,7 +151,7 @@ public class MainActivity2 extends AppCompatActivity {
                 TextView textView = obtainTextView();
                 textView.post(() -> mTranslationNum = textView.getHeight() + dp2px(12));
                 llContainer.addView(textView);
-                sendEmptyMessageDelayed(0, 2000);
+                sendEmptyMessageDelayed(0, mDuration * 150 / 100);
                 index++;
                 if (index == 4) {
                     index = 0;
